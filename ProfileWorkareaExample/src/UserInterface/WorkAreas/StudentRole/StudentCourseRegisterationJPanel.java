@@ -4,6 +4,12 @@
  */
 package UserInterface.WorkAreas.StudentRole;
 
+import Business.Business;
+import Business.Course;
+import Business.CourseList;
+import Business.Profiles.StudentProfile;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -16,11 +22,18 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form StudentCourseRegisterationJPanel
      */
-    public StudentCourseRegisterationJPanel() {
+     Business business;
+    StudentProfile student;
+    CourseList courselists;
+
+    public StudentCourseRegisterationJPanel(Business business, StudentProfile student, CourseList courselists) {
         initComponents();
+        
+        this.business = business;
+        this.student = student;
+        this.courselists = courselists;
         displayCourse();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,10 +154,23 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
+    
+        
     private void displayCourse() {
         
-     courseList.add()
+    // Convert ArrayList to an array
         
+    ArrayList<Course> courses = courselists.getCourseList();
+
+        // Create a DefaultListModel and add elements from the array
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (Course item : courses) {
+            listModel.addElement(item.toString());
+        }
+
         
     }
+        
+        
+    
 }

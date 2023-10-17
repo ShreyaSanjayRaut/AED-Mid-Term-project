@@ -28,6 +28,11 @@ public class Person {
     Person() {
       
     }
+
+    public Person(String id) {
+        this.id = id;
+    }
+    
     
 
     public String getId() {

@@ -67,6 +67,12 @@ public class Course {
     public List<StudentAccount> getStudents() {
         return students;
     }
+    
+     @Override
+    public String toString() {
+        return courseName;
+    }
+    
 }
 
     

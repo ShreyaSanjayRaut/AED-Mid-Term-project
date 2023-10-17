@@ -27,6 +27,13 @@ public class PersonDirectory {
         personlist.add(p);
         return p;
     }
+    
+    public Person newPerson(String id) {
+
+        Person p = new Person(id);
+        personlist.add(p);
+        return p;
+    }
 
     public Person findPerson(String id) {
 
@@ -38,5 +45,6 @@ public class PersonDirectory {
         }
             return null; //not found after going through the whole list
          }
+
     
 }

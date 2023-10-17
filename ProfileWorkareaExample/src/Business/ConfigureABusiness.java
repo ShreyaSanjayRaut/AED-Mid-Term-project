@@ -38,18 +38,19 @@ class ConfigureABusiness {
         Person person008 = persondirectory.newPerson("JP Morgan");
         Person person009 = persondirectory.newPerson("State street"); //we use this as customer 
 
-// Create Customers
+// Create Customers*/
 
 
 // Create Admins to manage the business
+ Person xeroxadminperson001 = persondirectory.newPerson("Xerox admin");
         EmployeeDirectory employeedirectory = business.getEmployeeDirectory();
-        EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);*/
+        EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);
 
 
    
 // Create User accounts that link to specific profiles
-      //  UserAccountDirectory uadirectory = business.getUserAccountDirectory();
-       // UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "XXXX"); /// order products for one of the customers and performed by a sales person
+       UserAccountDirectory uadirectory = business.getUserAccountDirectory();
+        UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "XXXX"); /// order products for one of the customers and performed by a sales person
 
 
         return business;

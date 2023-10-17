@@ -11,6 +11,7 @@
 package UserInterface.WorkAreas.StudentRole;
 
 import Business.Business;
+import Business.CourseList;
 import Business.Profiles.StudentProfile;
 import javax.swing.JPanel;
 
@@ -24,6 +25,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     Business business;
     StudentProfile student;
     StudentCourseRegisterationJPanel courseRegJPanel;
+    CourseList courselist;
+
 
     /**
      * Creates new form UnitRiskWorkArea
@@ -32,15 +35,15 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      * @param spp
      * @param clp
      */
-    public StudentWorkAreaJPanel(Business b, StudentProfile spp, JPanel clp, JPanel CardSequencePanel1) {
+    public StudentWorkAreaJPanel(Business b, StudentProfile spp,CourseList courselist, JPanel CardSequencePanel) {
 
         business = b;
-        this.CardSequencePanel = clp;
+        this.CardSequencePanel = CardSequencePanel;
         student = spp;
+        this.courselist = courselist;
         initComponents();
 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,7 +208,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
-        CardSequencePanel.removeAll();
+       CardSequencePanel.removeAll();
+       courseRegJPanel = new StudentCourseRegisterationJPanel(business,student,courselist);
 
         CardSequencePanel.add("couse", courseRegJPanel);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);

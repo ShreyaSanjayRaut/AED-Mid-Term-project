@@ -162,7 +162,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         if (profile instanceof StudentProfile) {
 
             StudentProfile spp = (StudentProfile) profile;
-            studentworkareajpanel = new StudentWorkAreaJPanel(business, spp, courseList, CardSequencePanel);
+            studentworkareajpanel = new StudentWorkAreaJPanel(business, spp,courseList,CardSequencePanel);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("student", studentworkareajpanel);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
