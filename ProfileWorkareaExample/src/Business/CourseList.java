@@ -13,6 +13,11 @@ import java.util.ArrayList;
 public class CourseList {
     
     ArrayList<Course> courseList;
+    
+    public CourseList() {
+        this.courseList = new ArrayList<Course>();
+    }
+
 
     public void setCourseList(ArrayList<Course> courseList) {
         this.courseList = courseList;
@@ -32,3 +37,4 @@ public class CourseList {
     
     
 }
+ 

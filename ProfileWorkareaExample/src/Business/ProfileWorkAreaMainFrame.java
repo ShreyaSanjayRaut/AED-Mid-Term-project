@@ -35,7 +35,8 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-        
+         courseList = new CourseList();
+       
 
     }
 

@@ -24,7 +24,7 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
      */
      Business business;
     StudentProfile student;
-    CourseList courselists;
+     CourseList courselists;
 
     public StudentCourseRegisterationJPanel(Business business, StudentProfile student, CourseList courselists) {
         initComponents();
@@ -159,8 +159,15 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
     private void displayCourse() {
         
     // Convert ArrayList to an array
-        
-    ArrayList<Course> courses = courselists.getCourseList();
+    
+    Course course = courselists.addNewCourse();
+    course.setCourseCode("5100");
+    course.setCredit(4);
+    course.setCourseName("AED");
+   
+            
+     
+   ArrayList<Course> courses = courselists.getCourseList();
 
         // Create a DefaultListModel and add elements from the array
         DefaultListModel<String> listModel = new DefaultListModel<>();

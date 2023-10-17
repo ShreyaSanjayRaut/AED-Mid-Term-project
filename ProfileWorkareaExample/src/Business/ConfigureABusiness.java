@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
 
-*/
+ */
 package Business;
 
 import Business.Person.Person;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.EmployeeProfile;
+import Business.Profiles.FacultyDirectory;
+import Business.Profiles.FacultyProfile;
 import Business.Profiles.StudentDirectory;
 import Business.Profiles.StudentProfile;
 
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
-
 
 /**
  *
@@ -27,9 +28,9 @@ class ConfigureABusiness {
         Business business = new Business("Information Systems");
 
 // Create Persons
-      PersonDirectory persondirectory = business.getPersonDirectory();
+        PersonDirectory persondirectory = business.getPersonDirectory();
 // person representing sales organization        
-      /*  Person xeroxsalesperson001 = persondirectory.newPerson("Xerox sales");
+        /*  Person xeroxsalesperson001 = persondirectory.newPerson("Xerox sales");
         Person xeroxmarketingperson001 = persondirectory.newPerson("Xerox marketing");
         Person xeroxadminperson001 = persondirectory.newPerson("Xerox admin");
 
@@ -42,26 +43,34 @@ class ConfigureABusiness {
 
 // Create Customers*/
 
-
 // Create Admins to manage the business
- Person xeroxadminperson001 = persondirectory.newPerson("Xerox admin");
+        Person xeroxadminperson001 = persondirectory.newPerson("Xerox admin");
         EmployeeDirectory employeedirectory = business.getEmployeeDirectory();
         EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);
 
-
-   
 // Create User accounts that link to specific profiles
-       UserAccountDirectory uadirectory = business.getUserAccountDirectory();
+        UserAccountDirectory uadirectory = business.getUserAccountDirectory();
         UserAccount ua3 = uadirectory.newUserAccount(employeeprofile0, "admin", "XXXX"); /// order products for one of the customers and performed by a sales person
 
- Person student01 = persondirectory.newPerson("S01");
+        Person student01 = persondirectory.newPerson("S01");
         StudentDirectory studentdirectory = business.getStudentDirectory();
-    //    EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);
+        //    EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);
 
+        StudentProfile studentProfile = studentdirectory.newStudentProfile(student01);
 
-        StudentProfile studentProfile= studentdirectory.newStudentProfile(student01);
+        UserAccount ua2 = uadirectory.newUserAccount(studentProfile, "s", "s"); /// order products for one of the customers and performed by a sales person
+
+        //create faculty
         
-           UserAccount ua2 = uadirectory.newUserAccount(studentProfile, "s", "s"); /// order products for one of the customers and performed by a sales person
+        
+        Person faculty01 = persondirectory.newPerson("F01");
+        FacultyDirectory facultydirectory = business.getFacultyDirectory();
+        //    EmployeeProfile employeeprofile0 = employeedirectory.newEmployeeProfile(xeroxadminperson001);
+
+        FacultyProfile facultyProfile = facultydirectory.newFacultyProfile(faculty01);
+        UserAccount ua1 = uadirectory.newUserAccount(facultyProfile, "f", "f"); 
+        
+     
 
         return business;
 
