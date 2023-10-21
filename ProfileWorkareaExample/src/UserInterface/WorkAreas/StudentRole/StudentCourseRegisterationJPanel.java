@@ -53,7 +53,7 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
         this.CardSequencePanel = CardSequencePanel;
 
         displayCourse();
-       temp();
+      // temp();
     }
 
     /**

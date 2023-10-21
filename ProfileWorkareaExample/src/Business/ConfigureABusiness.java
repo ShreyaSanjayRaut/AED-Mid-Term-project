@@ -91,7 +91,7 @@ class ConfigureABusiness {
         //System.out.println("UserInterface.WorkAreas.StudentRole.StudentCourseRegisterationJPanel.temp()");
         //System.out.println("UserInterface.WorkAreas.StudentRole.StudentCourseRegisterationJPanel.temp()");
        
-            
+            FacultyCourseBean.initalize();
         return business;
 
     }
