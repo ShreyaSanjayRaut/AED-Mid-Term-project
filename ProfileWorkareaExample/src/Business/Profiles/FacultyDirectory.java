@@ -40,6 +40,7 @@ public class FacultyDirectory {
         for (FacultyProfile sp : facultylist) {
 
             if (sp.isMatch(id)) {
+              //  System.out.println("find faculty*********");
                 return sp;
             }
         }

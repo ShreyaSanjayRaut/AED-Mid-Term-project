@@ -17,19 +17,20 @@ public class Course {
     private String courseCode;
     private String courseName;
     private String instructor;
-    private List<StudentAccount> students;
+    private List<Assignment> assignments;
+
+   
     private int credit;
 
-    public Course(String courseCode, String courseName, String instructor, List<StudentAccount> students, int credit) {
+    public Course(String courseCode, String courseName, String instructor, int credit,List<Assignment> assignments) {
         this.courseCode = courseCode;
         this.courseName = courseName;
-        this.instructor = instructor;
-        this.students = students;
         this.credit = credit;
+        this.assignments = new ArrayList<Assignment>();
     }
 
     Course() {
-        
+         this.assignments = new ArrayList<Assignment>(); 
     }
   
     public int getCredit() {
@@ -64,13 +65,23 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public List<StudentAccount> getStudents() {
-        return students;
+    public List<Assignment> getAssignments() {
+        return assignments;
     }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
+    
     
      @Override
     public String toString() {
         return courseName;
+    }
+
+    public void addAssignment(Assignment assignment) {
+       assignments.add(assignment);
     }
     
 }

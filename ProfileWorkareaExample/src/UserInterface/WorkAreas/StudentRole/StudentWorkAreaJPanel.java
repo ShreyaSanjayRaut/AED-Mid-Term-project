@@ -13,6 +13,8 @@ package UserInterface.WorkAreas.StudentRole;
 import Business.Business;
 import Business.CourseList;
 import Business.Profiles.StudentProfile;
+import ManagerBean.CourseManagerBean;
+import ManagerBean.FacultyManagerBean;
 import javax.swing.JPanel;
 
 /**
@@ -26,7 +28,12 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     StudentProfile student;
     StudentCourseRegisterationJPanel courseRegJPanel;
     CourseList courselist;
+    CourseManagerBean courseManagerBean;
+    FacultyManagerBean facultyManagerBean;
+    StudentGraduationAuditJPanel auditJPanel;
 
+    StudentCourseWorkJPanel couseWorkJPanel;
+    StudentTranscriptJPanel studentTranscriptJPanel;
 
     /**
      * Creates new form UnitRiskWorkArea
@@ -35,15 +42,19 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      * @param spp
      * @param clp
      */
-    public StudentWorkAreaJPanel(Business b, StudentProfile spp,CourseList courselist, JPanel CardSequencePanel) {
+    public StudentWorkAreaJPanel(Business business, StudentProfile student, CourseList courselist, CourseManagerBean courseManagerBean, FacultyManagerBean facultyManagerBean, JPanel CardSequencePanel) {
+        initComponents();
 
-        business = b;
-        this.CardSequencePanel = CardSequencePanel;
-        student = spp;
+        this.business = business;
+        this.student = student;
         this.courselist = courselist;
+        this.courseManagerBean = courseManagerBean;
+        this.facultyManagerBean = facultyManagerBean;
+        this.CardSequencePanel = CardSequencePanel;
         initComponents();
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,13 +186,10 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jButton4IdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4IdentifyResourceAssetsActionPerformed
 
-// TODO add your handling code here:
-//        String customername = customerNameTextField.getText();
-//        if (customername.isEmpty()) return;
-//        CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
-//        ProcessOrder aos = new ProcessOrder(business, selectedcustomer ,salesperson, CardSequencePanel);
-        //       CardSequencePanel.add("ManageVulns", aos);
-        //       ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+      
+        couseWorkJPanel = new StudentCourseWorkJPanel(business, student, courselist, courseManagerBean, facultyManagerBean, CardSequencePanel);
+        CardSequencePanel.add("couseWorkPanel", couseWorkJPanel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
@@ -196,28 +204,35 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+
         // TODO add your handling code here:
 
         /*       ManageSalesPersonOrders iet = new ManageSalesPersonOrders(business, CardSequencePanel);
 
-        CardSequencePanel.add("FindResourceAsset", iet);
+            */
+         auditJPanel = new StudentGraduationAuditJPanel(business, student, courselist, courseManagerBean, facultyManagerBean, CardSequencePanel);
+        CardSequencePanel.add("auditJPanel", auditJPanel);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-         */
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
-       CardSequencePanel.removeAll();
-       courseRegJPanel = new StudentCourseRegisterationJPanel(business,student,courselist);
+        courseRegJPanel = new StudentCourseRegisterationJPanel(business, student, courselist, courseManagerBean, facultyManagerBean, CardSequencePanel);
 
-        CardSequencePanel.add("couse", courseRegJPanel);
+        CardSequencePanel.add("courseRegistration", courseRegJPanel);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
 }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        
+         studentTranscriptJPanel = new StudentTranscriptJPanel(business, student, courselist, courseManagerBean, facultyManagerBean, CardSequencePanel);
+        CardSequencePanel.add("studentTranscriptJPanel", studentTranscriptJPanel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
 

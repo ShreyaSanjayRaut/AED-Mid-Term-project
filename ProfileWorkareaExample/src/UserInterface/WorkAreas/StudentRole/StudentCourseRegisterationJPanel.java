@@ -7,9 +7,20 @@ package UserInterface.WorkAreas.StudentRole;
 import Business.Business;
 import Business.Course;
 import Business.CourseList;
+import Business.FacultyCourseBean;
+import Business.Person.Person;
+import Business.Profiles.FacultyDirectory;
+import Business.Profiles.FacultyProfile;
 import Business.Profiles.StudentProfile;
+import Business.StudentCourseBean;
+import static Business.StudentCourseBean.studentCourseMap;
+import ManagerBean.CourseManagerBean;
+import ManagerBean.FacultyManagerBean;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,18 +33,29 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form StudentCourseRegisterationJPanel
      */
-     Business business;
+    Business business;
     StudentProfile student;
-     CourseList courselists;
+    CourseList courselists;
+    CourseManagerBean courseManagerBean;
+    String selectedCourse = null;
+    String selectedProfessor = null;
+    FacultyManagerBean facultyManagerBean;
+    JPanel CardSequencePanel;
 
-    public StudentCourseRegisterationJPanel(Business business, StudentProfile student, CourseList courselists) {
+    public StudentCourseRegisterationJPanel(Business business, StudentProfile student, CourseList courselists, CourseManagerBean courseManagerBean, FacultyManagerBean facultyManagerBean, JPanel CardSequencePanel) {
         initComponents();
-        
+
         this.business = business;
         this.student = student;
         this.courselists = courselists;
+        this.courseManagerBean = courseManagerBean;
+        this.facultyManagerBean = facultyManagerBean;
+        this.CardSequencePanel = CardSequencePanel;
+
         displayCourse();
+        temp();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +73,9 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        facultyList = new javax.swing.JList<>();
+        Back = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1136, 472));
 
@@ -61,6 +85,11 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        courseList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                courseListValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(courseList);
 
@@ -77,27 +106,55 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Timings ");
 
+        facultyList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        facultyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                facultyListValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(facultyList);
+
+        Back.setText("<< Back");
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addGap(48, 48, 48)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1)
-                                .addComponent(jTextField1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(Back)))
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2)))))
-                .addContainerGap(647, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextField1)
+                            .addComponent(jScrollPane2))))
+                .addContainerGap(577, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,76 +165,146 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Back))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       //Logic for enrolling course:
-       
-      courseList.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    // Get the selected options
-                    Object[] selectedValues = courseList.getSelectedValuesList().toArray();
-                    for (Object selectedValue : selectedValues) {
-                        System.out.println("Selected: " + selectedValue);
-                    }
+        //Logic for enrolling course:
+        // System.out.println(""+selectedCourse + ":"+selectedProfessor);
+        courseManagerBean.enrollForCourse(courseManagerBean.findCourse(selectedCourse), student, facultyManagerBean.findFacultyByID(selectedProfessor));
+        JOptionPane.showMessageDialog(this, "You are enrollerd in Coutse :" + selectedCourse);
+        //showCoureRegInformatio();
+        displayCourse();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void courseListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_courseListValueChanged
+        // TODO add your handling code here:
+        Object[] selectedValues = courseList.getSelectedValuesList().toArray();
+
+        if (!evt.getValueIsAdjusting()) {
+            // Get the selected options
+
+            for (Object selectedValue : selectedValues) {
+                // System.out.println("Selected: " + selectedValue);
+                selectedCourse = selectedValue.toString();
+            }
+        }
+
+        if (selectedCourse != null) {
+            List<FacultyProfile> facultyNames = courseManagerBean.findFacultyByCourse(selectedCourse);
+            DefaultListModel<String> listModel = new DefaultListModel<>();
+            if (facultyNames != null) {
+                for (FacultyProfile faculty : facultyNames) {
+                    listModel.addElement(faculty.getPerson().getId());
                 }
             }
-        });
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+            facultyList.setModel(listModel);
+
+        }
+    }//GEN-LAST:event_courseListValueChanged
+
+    private void facultyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_facultyListValueChanged
+        // TODO add your handling code here:
+
+        Object[] selectedValues = facultyList.getSelectedValuesList().toArray();
+
+        if (!evt.getValueIsAdjusting()) {
+            // Get the selected options
+
+            for (Object selectedValue : selectedValues) {
+                // System.out.println("Selected: " + selectedValue);
+                selectedProfessor = selectedValue.toString();
+            }
+        }
+
+
+    }//GEN-LAST:event_facultyListValueChanged
+
+    private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
+        // TODO add your handling code here:
+        CardSequencePanel.remove(this);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        //       ((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");
+    }//GEN-LAST:event_BackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Back;
     private javax.swing.JList<String> courseList;
+    private javax.swing.JList<String> facultyList;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
-    
-        
     private void displayCourse() {
-        
-    // Convert ArrayList to an array
-    
-    Course course = courselists.addNewCourse();
-    course.setCourseCode("5100");
-    course.setCredit(4);
-    course.setCourseName("AED");
-   
-            
-     
-   ArrayList<Course> courses = courselists.getCourseList();
+
+        // System.out.println("UserInterface.WorkAreas.StudentRole.StudentCourseRegisterationJPanel.displayCourse()" + courselists.getCourseList());
+        ArrayList<Course> courses = courselists.getCourseList();
 
         // Create a DefaultListModel and add elements from the array
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<String> listModel2 = new DefaultListModel<>();
         for (Course item : courses) {
-            listModel.addElement(item.toString());
+            boolean alreadyEnrolled = false;
+            if (!StudentCourseBean.studentCourseMap.isEmpty()) {
+                List<Course> enrolledCourseList = StudentCourseBean.studentCourseMap.get(student);
+                if (enrolledCourseList != null) {
+                    for (Course studentCourses : enrolledCourseList) {
+                        if (studentCourses.toString().equals(item.toString())) {
+                            alreadyEnrolled = true;
+                        }
+                    }
+                }
+            }
+            if (!alreadyEnrolled) {
+                listModel2.addElement(item.toString());
+            }
         }
 
-        
+        courseList.setModel(listModel2);
+
     }
-        
-        
-    
+
+    private void temp() {
+
+        FacultyCourseBean.initalize();
+        Course aed = courseManagerBean.findCourse("AED");
+        if (aed != null) {
+            // System.out.println("in temp12");
+            FacultyCourseBean.saveCourse(aed, business.getFacultyDirectory().findFaculty("KAL"));
+
+        }
+
+        Course web = courseManagerBean.findCourse("web");
+        if (web != null) {
+            // System.out.println("in temp12");
+            FacultyCourseBean.saveCourse(web, business.getFacultyDirectory().findFaculty("AMUTHAN"));
+
+        }
+    }
+
+    private void showCoureRegInformatio() {
+
+        StudentCourseBean.displayStudentCourseFaculty();
+    }
+
 }

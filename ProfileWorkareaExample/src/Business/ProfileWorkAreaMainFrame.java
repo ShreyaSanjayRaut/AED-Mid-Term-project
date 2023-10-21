@@ -11,6 +11,8 @@ import Business.Profiles.StudentProfile;
 
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import ManagerBean.CourseManagerBean;
+import ManagerBean.FacultyManagerBean;
 
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
@@ -27,6 +29,8 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
     Business business;
     CourseList courseList;
+    CourseManagerBean courseManagerBean;
+    FacultyManagerBean facultyManagerBean;
 
     /**
      * Creates new form PricingMainFrame
@@ -35,7 +39,9 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-         courseList = new CourseList();
+       courseList = ConfigureABusiness.getCourse();
+        courseManagerBean= new CourseManagerBean(courseList);
+        facultyManagerBean = new FacultyManagerBean(business.getFacultyDirectory());
        
 
     }
@@ -161,9 +167,10 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         }
         
         if (profile instanceof StudentProfile) {
-
+                
             StudentProfile spp = (StudentProfile) profile;
-            studentworkareajpanel = new StudentWorkAreaJPanel(business, spp,courseList,CardSequencePanel);
+            System.out.println("Business.ProfileWorkAreaMainFrame.LoginButtonActionPerformed()"+spp.getPerson().getId());
+            studentworkareajpanel = new StudentWorkAreaJPanel(business, spp,courseList,courseManagerBean,facultyManagerBean,CardSequencePanel);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("student", studentworkareajpanel);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);

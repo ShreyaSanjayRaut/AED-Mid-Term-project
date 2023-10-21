@@ -14,6 +14,7 @@ import Business.Person.Person;
 public class StudentProfile extends Profile {
 
     Person person;
+    
 //    Transcript transcript;
     //   EmploymentHistroy employmenthistory;
 
@@ -32,5 +33,12 @@ public class StudentProfile extends Profile {
     public boolean isMatch(String id) {
         return person.getPersonId().equals(id);
     }
+
+    @Override
+    public String toString() {
+        return person.toString();
+    }
+    
+    
 
 }
