@@ -85,7 +85,7 @@ class ConfigureABusiness {
         FacultyDirectory directory=business.getFacultyDirectory();
         FacultyProfile profile =directory.newFacultyProfile(new Person("KAL"));
        
-        
+        System.out.println("Business.ConfigureABusiness.initialize()"+ directory.findFaculty("KAL"));
         
         FacultyProfile profile2 =directory.newFacultyProfile(new Person("AMUTHAN"));
         //System.out.println("UserInterface.WorkAreas.StudentRole.StudentCourseRegisterationJPanel.temp()");

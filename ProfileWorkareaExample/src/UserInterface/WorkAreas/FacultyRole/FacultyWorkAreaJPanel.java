@@ -11,6 +11,7 @@
 package UserInterface.WorkAreas.FacultyRole;
 
 import Business.Business;
+import Business.Person.PersonDirectory;
 import UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp.ManagePersonsJPanel;
 import javax.swing.JPanel;
 
@@ -22,6 +23,7 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
 
     javax.swing.JPanel CardSequencePanel;
     Business business;
+       PersonDirectory list;
 
     /**
      * Creates new form UnitRiskWorkArea
@@ -151,7 +153,7 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardSequencePanel.removeAll();
 
-        ManagePersonsJPanel aos = new ManagePersonsJPanel(business, CardSequencePanel);
+        ManagePersonsJPanel aos = new ManagePersonsJPanel(business, list, CardSequencePanel);
 
         CardSequencePanel.add("ManageVulns", aos);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);

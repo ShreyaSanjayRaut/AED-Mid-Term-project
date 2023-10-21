@@ -19,12 +19,13 @@ public class Course {
     private String instructor;
     private List<Assignment> assignments;
 
-   
+    private String department;
     private int credit;
 
-    public Course(String courseCode, String courseName, String instructor, int credit,List<Assignment> assignments) {
+    public Course(String courseCode, String courseName, String department, int credit,List<Assignment> assignments) {
         this.courseCode = courseCode;
         this.courseName = courseName;
+        this.department =  department;
         this.credit = credit;
         this.assignments = new ArrayList<Assignment>();
     }
@@ -73,7 +74,14 @@ public class Course {
         this.assignments = assignments;
     }
 
-    
+      public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     
      @Override
     public String toString() {

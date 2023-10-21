@@ -53,7 +53,7 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
         this.CardSequencePanel = CardSequencePanel;
 
         displayCourse();
-        temp();
+       temp();
     }
 
     /**
@@ -289,14 +289,14 @@ public class StudentCourseRegisterationJPanel extends javax.swing.JPanel {
         FacultyCourseBean.initalize();
         Course aed = courseManagerBean.findCourse("AED");
         if (aed != null) {
-            // System.out.println("in temp12");
+             System.out.println("in temp12");
             FacultyCourseBean.saveCourse(aed, business.getFacultyDirectory().findFaculty("KAL"));
 
         }
 
-        Course web = courseManagerBean.findCourse("web");
+        Course web = courseManagerBean.findCourse("WEB");
         if (web != null) {
-            // System.out.println("in temp12");
+            System.out.println("in temp13");
             FacultyCourseBean.saveCourse(web, business.getFacultyDirectory().findFaculty("AMUTHAN"));
 
         }

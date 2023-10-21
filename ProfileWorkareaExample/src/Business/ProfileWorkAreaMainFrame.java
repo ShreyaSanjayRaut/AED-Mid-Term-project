@@ -5,7 +5,9 @@
  */
 package Business;
 
+import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeProfile;
+import Business.Profiles.FacultyProfile;
 import Business.Profiles.Profile;
 import Business.Profiles.StudentProfile;
 
@@ -17,6 +19,7 @@ import ManagerBean.FacultyManagerBean;
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
 import UserInterface.WorkAreas.StudentRole.StudentWorkAreaJPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,6 +32,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
     Business business;
     CourseList courseList;
+    PersonDirectory list;
     CourseManagerBean courseManagerBean;
     FacultyManagerBean facultyManagerBean;
 
@@ -39,7 +43,9 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-       courseList = ConfigureABusiness.getCourse();
+      // courseList = ConfigureABusiness.getCourse();
+         courseList  = new CourseList();
+           list = new PersonDirectory();
         courseManagerBean= new CourseManagerBean(courseList);
         facultyManagerBean = new FacultyManagerBean(business.getFacultyDirectory());
        
@@ -139,15 +145,14 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        // TODO add your handling code here:
-        //      WorkAreaJPanel ura = new WorkAreaJPanel(workareajpanl);
-
+      System.out.println("1");
         String un = UserNameTextField.getText();
         String pw = PasswordTextField.getText();
 
         UserAccountDirectory uad = business.getUserAccountDirectory();
         UserAccount useraccount = uad.AuthenticateUser(un, pw);
         if (useraccount == null) {
+               JOptionPane.showMessageDialog(null, "Wrong username or password");
             return;
         }
         StudentWorkAreaJPanel studentworkareajpanel;
@@ -158,14 +163,13 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         //       if (r.equalsIgnoreCase("sales")) {
 
         if (profile instanceof EmployeeProfile) {
-
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel);
+            System.out.println("EmployeeProfile");
+            adminworkarea = new AdminRoleWorkAreaJPanel(business,list,courseList, CardSequencePanel);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-        
         if (profile instanceof StudentProfile) {
                 
             StudentProfile spp = (StudentProfile) profile;
@@ -176,15 +180,14 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-
- /*      if (profile instanceof FacultyProfile) {
+        if (profile instanceof FacultyProfile) {
+               System.out.println("FacultyProfile");
             facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("faculty", facultyworkarea);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
         }
-*/
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 

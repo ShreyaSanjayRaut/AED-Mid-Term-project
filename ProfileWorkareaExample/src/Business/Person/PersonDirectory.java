@@ -25,6 +25,7 @@ public class PersonDirectory {
 
         Person p = new Person();
         personlist.add(p);
+        System.out.println("p from java class"+p);
         return p;
     }
     
@@ -45,6 +46,10 @@ public class PersonDirectory {
         }
             return null; //not found after going through the whole list
          }
+    
+     public ArrayList<Person> getPersonList() {
+        return personlist;
+    }
 
     
 }

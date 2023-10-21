@@ -16,16 +16,18 @@ public class Person {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String type;
 
-    public Person(String id, String email, String firstName, String lastName, String phoneNumber) {
+    public Person(String id, String email, String firstName, String lastName, String phoneNumber,String type) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.type = type;
     }
 
-    Person() {
+    public Person() {
       
     }
 
@@ -37,6 +39,14 @@ public class Person {
 
     public String getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setId(String id) {
@@ -92,4 +102,5 @@ public class Person {
     public String toString() {
         return getPersonId();
     }
+    
 }
